@@ -272,14 +272,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let total = parseFloat(baseCombo.price);
             total += selections.burger.priceAdd + selections.side.priceAdd + selections.drink.priceAdd;
 
-            // Format name: "Set A: Classic Prime + Cheesy Wedges + Coke"
-            const finalName = `${baseCombo.name}: ${selections.burger.name} + ${selections.side.name} + ${selections.drink.name}`;
+            // Format name: "Couple Set" alone
+            const finalName = `${baseCombo.name}`;
+            const subDetailsArr = [selections.burger.name, selections.side.name, selections.drink.name];
 
             const finalItem = {
                 id: `${baseCombo.id}-${selections.burger.id}-${selections.side.id}-${selections.drink.id}`,
                 name: finalName,
                 price: parseFloat(total.toFixed(2)),
-                image: baseCombo.image
+                image: baseCombo.image,
+                subDetails: subDetailsArr
             };
 
             // Dispatch global event for cart to pick up

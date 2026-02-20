@@ -127,6 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 img.src = item.image;
                 img.alt = item.name;
 
+                const subDetailsEl = clone.querySelector('.cart-item-subdetails');
+                if (item.subDetails && item.subDetails.length > 0) {
+                    subDetailsEl.textContent = item.subDetails.join(' • ');
+                    subDetailsEl.classList.remove('hidden');
+                }
+
                 clone.querySelector('.cart-item-title').textContent = item.name;
                 clone.querySelector('.cart-item-price').textContent = `RM ${(item.price * item.quantity).toFixed(2)}`;
                 clone.querySelector('.cart-item-qty').textContent = item.quantity;
@@ -195,28 +201,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Checkout Logic (WhatsApp) ---
-    checkoutBtn.addEventListener('click', () => {
+    // --- Review Order Modal Logic ---
+    const reviewModalOverlay = document.getElementById('review-modal-overlay');
+    const reviewModalBox = document.getElementById('review-modal');
+    const closeReviewBtn = document.getElementById('close-review-modal');
+    const reviewBackBtn = document.getElementById('review-back-btn');
+    const reviewConfirmBtn = document.getElementById('review-confirm-btn');
+    const reviewOrderList = document.getElementById('review-order-list');
+    const reviewTotalPrice = document.getElementById('review-total-price');
+
+    const openReviewModal = () => {
+        // Render Order List
+        reviewOrderList.innerHTML = '';
+        cart.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'bg-white/5 rounded-xl p-4 border border-white/5 flex gap-4 items-center';
+
+            let itemHtml = `
+                <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover">
+                <div class="flex-1">
+                    <div class="flex justify-between items-start gap-4">
+                        <h4 class="font-bold text-white text-sm">${item.name} <span class="text-goldenYellow ml-1 font-black">x${item.quantity}</span></h4>
+                        <span class="text-goldenYellow font-bold text-sm whitespace-nowrap">RM ${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>`;
+
+            if (item.subDetails && item.subDetails.length > 0) {
+                itemHtml += `<p class="text-xs text-gray-400 mt-1">${item.subDetails.join(' • ')}</p>`;
+            }
+
+            itemHtml += `</div>`;
+            itemDiv.innerHTML = itemHtml;
+            reviewOrderList.appendChild(itemDiv);
+        });
+
+        reviewTotalPrice.textContent = `RM ${getCartTotal()}`;
+
+        // Close Sidebar
+        closeCart();
+
+        // Open Modal
+        reviewModalOverlay.classList.remove('hidden');
+        void reviewModalOverlay.offsetWidth;
+        reviewModalOverlay.classList.remove('opacity-0');
+        reviewModalBox.classList.remove('scale-95');
+        reviewModalBox.classList.add('scale-100');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeReviewModalHandler = () => {
+        reviewModalOverlay.classList.add('opacity-0');
+        reviewModalBox.classList.remove('scale-100');
+        reviewModalBox.classList.add('scale-95');
+        setTimeout(() => {
+            reviewModalOverlay.classList.add('hidden');
+            // If we're closing back to the menu, restore scroll
+            // Wait, maybe we open the cart sidebar back up? 
+            document.body.style.overflow = '';
+            openCart(); // Reopen cart sidebar when backing out
+        }, 300);
+    };
+
+    const confirmAndSendWhatsApp = () => {
         if (cart.length === 0) return;
 
         const phone = '60183178107'; // Replace with actual number
-        let message = `*Assalamualaikum Empire Burger! Saya nak order:*%0a%0a`;
+        let message = `*Assalamualaikum Empire Burger!*%0a%0a *PESANAN BARU:*%0a`;
 
-        cart.forEach(item => {
-            message += `${item.quantity}x ${item.name} - RM ${(item.price * item.quantity).toFixed(2)}%0a`;
+        cart.forEach((item, index) => {
+            message += `${index + 1}. ${item.name} x ${item.quantity}%0a`;
+            if (item.subDetails && item.subDetails.length > 0) {
+                message += `   - ${item.subDetails.join(', ')}%0a`;
+            }
         });
 
-        message += `%0a*Total: RM ${getCartTotal()}*`;
+        message += `%0a*JUMLAH: RM ${getCartTotal()}*`;
         message += `%0a%0aTerima Kasih!`;
 
         const url = `https://wa.me/${phone}?text=${message}`;
         window.open(url, '_blank');
 
-        // Clear cart and redirect to success page
+        // Clear cart and redirect
         cart = [];
         saveCart();
-        cartBtn.classList.add('hidden'); // Optional: hide cart badge completely if desired, or just let renderCart() handle it
         window.location.href = 'success.html';
+    };
+
+    checkoutBtn.addEventListener('click', openReviewModal);
+    closeReviewBtn.addEventListener('click', closeReviewModalHandler);
+    reviewBackBtn.addEventListener('click', closeReviewModalHandler);
+    reviewConfirmBtn.addEventListener('click', confirmAndSendWhatsApp);
+    reviewModalOverlay.addEventListener('click', (e) => {
+        if (e.target === reviewModalOverlay) closeReviewModalHandler();
     });
 
     // Intialize listener for custom events from combo builder
