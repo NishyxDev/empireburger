@@ -68,7 +68,78 @@
 </head>
 
 <body
-    class="bg-deepCharcoal text-white font-sans antialiased overflow-x-hidden selection:bg-goldenYellow selection:text-deepCharcoal">
+    class="bg-deepCharcoal text-white font-sans antialiased overflow-x-hidden selection:bg-goldenYellow selection:text-deepCharcoal overflow-hidden">
+
+    <!-- Loading Splash Screen -->
+    <div id="splash-screen"
+        class="fixed inset-0 z-[100] bg-deepCharcoal flex flex-col items-center justify-center transition-all duration-500 transform"
+        aria-busy="true" aria-label="Loading page">
+        <!-- Logo/Icon with floating animation -->
+        <div class="mb-8 animate-float-slow">
+            <div
+                class="relative w-20 h-20 bg-white/5 rounded-full flex items-center justify-center border border-white/10 shadow-[0_0_30px_rgba(255,183,3,0.1)]">
+                <i data-lucide="sandwich" class="w-10 h-10 text-goldenYellow"></i>
+            </div>
+        </div>
+
+        <!-- Progress Bar Container -->
+        <div class="w-64 max-w-[80vw]">
+            <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden relative">
+                <!-- Progress Indicator -->
+                <div id="splash-progress"
+                    class="absolute top-0 left-0 h-full bg-goldenYellow rounded-full w-0 transition-all duration-300 ease-out shadow-[0_0_10px_#FFB703]">
+                </div>
+            </div>
+
+            <!-- Loading Text -->
+            <p id="splash-text"
+                class="text-center text-goldenYellow text-sm mt-4 font-serif italic tracking-wide animate-pulse">
+                Menyiapkan aroma arang...</p>
+        </div>
+    </div>
+
+    <!-- Initialization Script -->
+    <script>
+            (function () {
+                const splashScreen = document.getElementById('splash-screen');
+                const progressBar = document.getElementById('splash-progress');
+                const splashText = document.getElementById('splash-text');
+                const texts = ["Menyiapkan aroma arang...", "Daging sedang dibakar...", "Hampir siap..."];
+                let textIndex = 0;
+
+                // Text change interval
+                const textInterval = setInterval(() => {
+                    textIndex = (textIndex + 1) % texts.length;
+                    splashText.textContent = texts[textIndex];
+                }, 800);
+
+                // Fake progress logic
+                let progress = 0;
+
+                // Quickly go to 30%
+                setTimeout(() => { progress = 30; progressBar.style.width = '30%'; }, 100);
+
+                // Then to 90%
+                setTimeout(() => { progress = 90; progressBar.style.width = '90%'; }, 500);
+
+                window.addEventListener('load', () => {
+                    // To 100% on load
+                    progressBar.style.width = '100%';
+
+                    setTimeout(() => {
+                        clearInterval(textInterval);
+                        // Smooth exit
+                        splashScreen.classList.add('opacity-0', 'scale-110');
+                        splashScreen.setAttribute('aria-busy', 'false');
+
+                        setTimeout(() => {
+                            splashScreen.classList.add('hidden');
+                            document.body.classList.remove('overflow-hidden');
+                        }, 500); // Matches transition duration
+                    }, 300); // Small delay to show 100%
+                });
+            })();
+    </script>
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-sm top-0 py-6" id="navbar">
