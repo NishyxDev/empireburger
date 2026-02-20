@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Empire Burger Blok F</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepCharcoal: '#121212',
+                        goldenYellow: '#FFB703',
+                        crimsonRed: '#D90429',
+                        darkRed: '#a80320',
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .active-category {
+            background-color: #FFB703;
+            color: #121212;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-deepCharcoal text-white font-sans antialiased overflow-x-hidden selection:bg-goldenYellow selection:text-deepCharcoal">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-sm top-0 py-6" id="navbar">
+        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html"
+                class="text-2xl lg:text-3xl font-serif font-bold tracking-tighter text-white hover:text-goldenYellow transition-colors duration-300">
+                Empire Burger Blok F
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-12">
+                <a href="index.html"
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    Home
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="menu.html  "
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    Menu
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="index.html#about"
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    About Us
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="index.html#feedback"
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    Feedback
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <!-- CTA & Mobile Menu Button -->
+            <div class="flex items-center gap-4">
+                <a href="#footer"
+                    class="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold tracking-wide text-white bg-crimsonRed rounded-full shadow-lg shadow-crimsonRed/20 hover:bg-darkRed hover:shadow-crimsonRed/40 transition-all duration-300 transform hover:-translate-y-0.5 group">
+                    <span>Order Now</span>
+                    <i data-lucide="arrow-right"
+                        class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <button class="md:hidden text-white focus:outline-none hover:text-goldenYellow transition-colors"
+                    id="mobile-menu-btn">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="md:hidden w-full bg-deepCharcoal/95 backdrop-blur-md absolute top-full left-0 border-t border-white/10 hidden transform origin-top transition-transform duration-300"
+            id="mobile-menu">
+            <div class="flex flex-col items-center py-8 space-y-6">
+                <a href="index.html" class="text-lg font-medium hover:text-goldenYellow transition-colors">Home</a>
+                <a href="menu.html" class="text-lg font-medium hover:text-goldenYellow transition-colors">Menu</a>
+                <a href="index.html#about" class="text-lg font-medium hover:text-goldenYellow transition-colors">About
+                    Us</a>
+                <a href="index.html#feedback"
+                    class="text-lg font-medium hover:text-goldenYellow transition-colors">Feedback</a>
+                <a href="#footer"
+                    class="px-8 py-3 text-sm font-bold text-white bg-crimsonRed rounded-full shadow-lg w-3/4 text-center">Order
+                    Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="pt-40 pb-16 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div
+            class="absolute top-0 right-0 w-3/4 h-full bg-gradient-to-l from-[#1a1a1a] to-transparent opacity-60 z-0 pointer-events-none">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-goldenYellow/5 rounded-full blur-[120px] z-0 pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative z-10 text-center">
+            <h1 class="font-serif text-4xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-up">
+                Menu Padu, <span class="text-goldenYellow">Rasa Champion.</span><br>
+                <span class="text-white/80 text-2xl lg:text-4xl mt-2 block font-medium">Pilih Vibe Anda Hari Ini.</span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- Sticky Category Filter -->
+    <div class="sticky top-[88px] z-40 bg-deepCharcoal/95 backdrop-blur-md border-b border-white/5 py-4 transition-all duration-300"
+        id="category-bar" role="region" aria-label="Menu Categories">
+        <div class="container mx-auto px-6 lg:px-12 relative group">
+            <!-- Left Arrow -->
+            <button id="cat-scroll-left"
+                class="hidden absolute left-2 md:left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:text-goldenYellow hover:bg-white/20 transition-all duration-300 shadow-lg"
+                aria-label="Scroll left">
+                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Scroll Container -->
+            <div id="category-scroll-container"
+                class="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory flex gap-4 px-8 md:px-12 min-w-full"
+                role="group">
+                <button
+                    class="filter-btn shrink-0 snap-center px-6 py-2 rounded-full border border-white/20 text-sm font-bold uppercase tracking-wider hover:border-goldenYellow hover:text-goldenYellow transition-all duration-300 active-category"
+                    data-category="all" aria-pressed="true">
+                    Semua
+                </button>
+                <button
+                    class="filter-btn shrink-0 snap-center px-6 py-2 rounded-full border border-white/20 text-sm font-bold uppercase tracking-wider hover:border-goldenYellow hover:text-goldenYellow transition-all duration-300"
+                    data-category="beef" aria-pressed="false">
+                    Signature Beef
+                </button>
+                <button
+                    class="filter-btn shrink-0 snap-center px-6 py-2 rounded-full border border-white/20 text-sm font-bold uppercase tracking-wider hover:border-goldenYellow hover:text-goldenYellow transition-all duration-300"
+                    data-category="chicken" aria-pressed="false">
+                    Chicken Series
+                </button>
+                <button
+                    class="filter-btn shrink-0 snap-center px-6 py-2 rounded-full border border-white/20 text-sm font-bold uppercase tracking-wider hover:border-goldenYellow hover:text-goldenYellow transition-all duration-300"
+                    data-category="combo" aria-pressed="false">
+                    Combo Deals
+                </button>
+                <button
+                    class="filter-btn shrink-0 snap-center px-6 py-2 rounded-full border border-white/20 text-sm font-bold uppercase tracking-wider hover:border-goldenYellow hover:text-goldenYellow transition-all duration-300"
+                    data-category="sides" aria-pressed="false">
+                    Sidekicks
+                </button>
+            </div>
+
+            <!-- Right Arrow -->
+            <button id="cat-scroll-right"
+                class="hidden absolute right-2 md:right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:text-goldenYellow hover:bg-white/20 transition-all duration-300 shadow-lg"
+                aria-label="Scroll right">
+                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Category Description (Dynamic) -->
+    <div class="bg-deepCharcoal py-8 border-b border-white/5">
+        <div class="container mx-auto px-6 lg:px-12 text-center">
+            <p id="category-description" class="text-xl text-gray-400 font-serif italic animate-fade-in-up">
+                Explore all our legendary flavors in one place.
+            </p>
+        </div>
+    </div>
+
+    <!-- Menu Grid -->
+    <main class="py-16 min-h-screen bg-[#0d0d0d]">
+        <div class="container mx-auto px-6 lg:px-12">
+            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Beef Items -->
+                <article class="menu-item group" data-category="beef">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <div class="absolute top-4 left-4 z-10">
+                                <span
+                                    class="bg-goldenYellow text-deepCharcoal text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Bestseller</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop"
+                                alt="The Classic Prime" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                The Classic Prime</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">200g angus beef patty, cheddar,
+                                caramelized onion, lettuce, tomato, home-made sauce.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 18.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="beef-classic" data-name="The Classic Prime" data-price="18.00"
+                                    data-image="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item group" data-category="beef">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <div class="absolute top-4 left-4 z-10">
+                                <span
+                                    class="bg-crimsonRed text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Spicy</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600&auto=format&fit=crop"
+                                alt="Spicy Volcano" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Spicy Volcano</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Double patty, spicy jalapeños, melted
+                                pepper jack cheese, volcano sauce.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 22.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="beef-spicy" data-name="Spicy Volcano" data-price="22.00"
+                                    data-image="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item group" data-category="beef">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <div class="absolute top-4 left-4 z-10">
+                                <span
+                                    class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Premium</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop"
+                                alt="Truffle Majesty" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Truffle Majesty</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Black truffle oil, sautéed wild
+                                mushrooms, swiss cheese, wagyu beef, garlic aioli.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 25.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="beef-truffle" data-name="Truffle Majesty" data-price="25.00"
+                                    data-image="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Chicken Items -->
+                <article class="menu-item group" data-category="chicken">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1615557960916-5f4791effe9d?q=80&w=600&auto=format&fit=crop"
+                                alt="Golden Crispy" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Golden Crispy</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Buttermilk fried chicken thigh, slaw,
+                                pickles, spicy honey glaze, toasted bun.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 16.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="chicken-golden" data-name="Golden Crispy" data-price="16.00"
+                                    data-image="https://images.unsplash.com/photo-1615557960916-5f4791effe9d?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item group" data-category="chicken">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop"
+                                alt="Nashville Hot" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Nashville Hot</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Spicy fried chicken, cayenne glaze,
+                                pickles, coleslaw, soft potato bun.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 19.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="chicken-nashville" data-name="Nashville Hot" data-price="19.00"
+                                    data-image="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Combo Items -->
+                <article class="menu-item group" data-category="combo">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <div class="absolute top-4 left-4 z-10">
+                                <span
+                                    class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Value</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600&auto=format&fit=crop"
+                                alt="Couple Set" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Couple Set</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">2x Signature Beef Burgers, 2x Fries, 2x
+                                Drinks.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 45.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="combo-couple" data-name="Couple Set" data-price="45.00"
+                                    data-image="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item group" data-category="combo">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop"
+                                alt="Family Feast" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Family Feast</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">4x Burgers (Beef/Chicken), 4x Fries, 4x
+                                Drinks, 1x Onion Rings.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 88.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="combo-family" data-name="Family Feast" data-price="88.00"
+                                    data-image="https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sides Items -->
+                <article class="menu-item group" data-category="sides">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?q=80&w=600&auto=format&fit=crop"
+                                alt="Truffle Fries" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Truffle Fries</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Crispy fries tossed in truffle oil and
+                                parmesan cheese.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 12.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="sides-truffle-fries" data-name="Truffle Fries" data-price="12.00"
+                                    data-image="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-item group" data-category="sides">
+                    <div
+                        class="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-300 hover:shadow-xl hover:shadow-goldenYellow/5 hover:-translate-y-1">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1639024471283-03518883512d?q=80&w=600&auto=format&fit=crop"
+                                alt="Onion Rings" loading="lazy"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-80">
+                            </div>
+                        </div>
+                        <div class="p-6 relative">
+                            <h3
+                                class="font-serif text-2xl font-bold text-white mb-2 group-hover:text-goldenYellow transition-colors">
+                                Onion Rings</h3>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Golden battered onion rings with a side
+                                of ranch dip.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-goldenYellow">RM 10.00</span>
+                                <button
+                                    class="add-to-cart-btn w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-crimsonRed hover:text-white transition-all"
+                                    data-id="sides-onion-rings" data-name="Onion Rings" data-price="10.00"
+                                    data-image="https://images.unsplash.com/photo-1639024471283-03518883512d?q=80&w=600&auto=format&fit=crop">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-[#050505] pt-20 pb-10 border-t border-white/5 relative overflow-hidden">
+        <!-- Background Glow -->
+        <div
+            class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-goldenYellow/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative z-10">
+
+            <!-- Top CTA Section -->
+            <div class="flex flex-col items-center text-center mb-16">
+                <h2 class="font-serif text-3xl lg:text-5xl font-bold mb-6">Sudah Bersedia Untuk <br> <span
+                        class="text-goldenYellow">Level Up Tastebud Anda?</span></h2>
+                <a href="https://wa.me/" target="_blank"
+                    class="inline-flex items-center gap-3 px-8 py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-full text-lg shadow-lg hover:shadow-green-500/20 hover:-translate-y-1 transition-all duration-300 group">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 fill-current">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                    <span>Order via WhatsApp</span>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-12 border-b border-white/10 pb-12 mb-8">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <a href="index.html" class="text-3xl font-serif font-bold tracking-tighter text-white mb-6 block">
+                        Empire Burger Blok F
+                    </a>
+                    <p class="text-gray-500 max-w-sm leading-relaxed mb-6">
+                        Burger premium buatan tangan dengan resepi asli yang membangkitkan selera. Daging segar, roti
+                        lembut, rasa padu.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-goldenYellow hover:text-deepCharcoal transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-goldenYellow hover:text-deepCharcoal transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-goldenYellow hover:text-deepCharcoal transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-white mb-6">Menu</h4>
+                    <ul class="space-y-4 text-gray-500">
+                        <li><a href="#" class="hover:text-goldenYellow transition-colors">Signature Beef</a></li>
+                        <li><a href="#" class="hover:text-goldenYellow transition-colors">Chicken Series</a></li>
+                        <li><a href="#" class="hover:text-goldenYellow transition-colors">Special Sides</a></li>
+                        <li><a href="#" class="hover:text-goldenYellow transition-colors">Drinks</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-white mb-6">Hubungi Kami</h4>
+                    <div
+                        class="mt-6 rounded-xl overflow-hidden h-48 border border-white/10 transition-all duration-500 mb-6">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.535848261352!2d101.7188!3d3.2088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwMTInMzEuNyJOIDEwMcKwNDMnMDcuNyJF!5e0!3m2!1sen!2smy!4v1700000000000"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                    <ul class="space-y-4 text-gray-500">
+                        <li class="flex gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-goldenYellow flex-shrink-0"></i>
+                            <span>123, Jalan Burger Sedap,<br>50000 Kuala Lumpur.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-goldenYellow flex-shrink-0"></i>
+                            <span>+60 12-345 6789</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i data-lucide="clock" class="w-5 h-5 text-goldenYellow flex-shrink-0"></i>
+                            <span>Selasa - Ahad<br>5:00 PM - 12:00 AM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+                <p>&copy; 2026 Empire Burger Blok F. All rights reserved. | Web Designed by Muhammad Danish</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+    <button id="cart-btn"
+        class="fixed bottom-6 right-6 z-50 bg-goldenYellow text-deepCharcoal p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 group">
+        <div class="relative">
+            <i data-lucide="shopping-cart" class="w-6 h-6 fill-current"></i>
+            <span id="cart-count"
+                class="absolute -top-3 -right-3 bg-crimsonRed text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full border-2 border-[#121212] hidden">
+                0
+            </span>
+        </div>
+    </button>
+
+    <!-- Cart Sidebar Overlay -->
+    <div id="cart-overlay"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar"
+        class="fixed top-0 right-0 h-full w-full max-w-md bg-[#121212]/95 backdrop-blur-xl border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-white/10 flex justify-between items-center bg-[#121212]">
+            <h2 class="font-serif text-2xl font-bold flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-6 h-6 text-goldenYellow"></i>
+                Your Order
+            </h2>
+            <button id="close-cart"
+                class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items (Scrollable) -->
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Empty State (Default) -->
+            <div id="cart-empty"
+                class="flex flex-col items-center justify-center h-full text-center text-gray-500 space-y-4">
+                <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-2">
+                    <i data-lucide="shopping-cart" class="w-10 h-10 opacity-50"></i>
+                </div>
+                <p class="text-lg">Your cart is empty.</p>
+                <button onclick="document.getElementById('close-cart').click()"
+                    class="text-goldenYellow hover:underline">
+                    Browse Menu
+                </button>
+            </div>
+            <!-- Dynamic Items will be injected here -->
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="p-6 border-t border-white/10 bg-[#0a0a0a]">
+            <div class="flex justify-between items-end mb-6">
+                <span class="text-gray-400 text-sm">Total Amount</span>
+                <span id="cart-total" class="text-3xl font-bold text-goldenYellow">RM 0.00</span>
+            </div>
+            <button id="checkout-btn"
+                class="w-full py-4 bg-goldenYellow text-deepCharcoal font-bold text-lg rounded-xl shadow-lg hover:bg-[#e0a103] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span>Pesan Sekarang via WhatsApp</span>
+                <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Item Template (Hidden) -->
+    <template id="cart-item-template">
+        <div
+            class="cart-item flex gap-4 bg-white/5 p-4 rounded-xl border border-white/5 items-center animate-fade-in-up">
+            <img src="" alt="" class="w-16 h-16 rounded-lg object-cover cart-item-img">
+            <div class="flex-1">
+                <h4 class="font-bold text-white text-sm line-clamp-1 cart-item-title"></h4>
+                <p class="text-goldenYellow font-bold text-sm mt-1 cart-item-price"></p>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+                <button class="text-gray-400 hover:text-crimsonRed transition-colors cart-item-remove"
+                    aria-label="Remove item">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+                <div class="flex items-center gap-3 bg-white/10 rounded-full px-2 py-1">
+                    <button
+                        class="w-6 h-6 flex items-center justify-center text-white hover:text-goldenYellow cart-item-decrease">
+                        <i data-lucide="minus" class="w-3 h-3"></i>
+                    </button>
+                    <span class="text-sm font-bold w-4 text-center cart-item-qty">1</span>
+                    <button
+                        class="w-6 h-6 flex items-center justify-center text-white hover:text-goldenYellow cart-item-increase">
+                        <i data-lucide="plus" class="w-3 h-3"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- JS -->
+    <script src="scripts/main.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/cart.js"></script>
+    <script>
+        // Re-initialize icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

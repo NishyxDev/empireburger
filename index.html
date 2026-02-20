@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Burger Blok F</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepCharcoal: '#121212',
+                        goldenYellow: '#FFB703',
+                        crimsonRed: '#D90429',
+                        darkRed: '#a80320',
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out infinite 2s',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .mask-image-gradient {
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-deepCharcoal text-white font-sans antialiased overflow-x-hidden selection:bg-goldenYellow selection:text-deepCharcoal">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-sm top-0 py-6" id="navbar">
+        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#"
+                class="text-2xl lg:text-3xl font-serif font-bold tracking-tighter text-white hover:text-goldenYellow transition-colors duration-300">
+                Empire Burger Blok F
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-12">
+                <a href="index.html"
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    Home
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="menu.html"
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    Menu
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#about"
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    About Us
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#feedback"
+                    class="nav-link text-sm font-semibold tracking-wide uppercase hover:text-goldenYellow transition-colors duration-300 relative group">
+                    Feedback
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-goldenYellow transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+
+            <!-- CTA & Mobile Menu Button -->
+            <div class="flex items-center gap-4">
+                <a href="#footer"
+                    class="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold tracking-wide text-white bg-crimsonRed rounded-full shadow-lg shadow-crimsonRed/20 hover:bg-darkRed hover:shadow-crimsonRed/40 transition-all duration-300 transform hover:-translate-y-0.5 group">
+                    <span>Order Now</span>
+                    <i data-lucide="arrow-right"
+                        class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <button class="md:hidden text-white focus:outline-none hover:text-goldenYellow transition-colors"
+                    id="mobile-menu-btn">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="md:hidden w-full bg-deepCharcoal/95 backdrop-blur-md absolute top-full left-0 border-t border-white/10 hidden transform origin-top transition-transform duration-300"
+            id="mobile-menu">
+            <div class="flex flex-col items-center py-8 space-y-6">
+                <a href="index.html" class="text-lg font-medium hover:text-goldenYellow transition-colors">Home</a>
+                <a href="menu.html" class="text-lg font-medium hover:text-goldenYellow transition-colors">Menu</a>
+                <a href="#about" class="text-lg font-medium hover:text-goldenYellow transition-colors">About Us</a>
+                <a href="#feedback" class="text-lg font-medium hover:text-goldenYellow transition-colors">Feedback</a>
+                <a href="#footer"
+                    class="px-8 py-3 text-sm font-bold text-white bg-crimsonRed rounded-full shadow-lg w-3/4 text-center">Order
+                    Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-28 lg:pt-0 overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=2000&auto=format&fit=crop"
+                alt="Premium Juicy Burger" class="w-full h-full object-cover" loading="eager"
+                fetchpriority="high">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-deepCharcoal"></div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="container mx-auto px-6 lg:px-12 relative z-10 text-center max-w-4xl">
+            <h1 class="font-serif text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-8 opacity-0 animate-fade-in-up drop-shadow-2xl"
+                style="animation-delay: 0.2s;">
+                <span class="block mb-2 text-white">Bau Arang Ori,</span>
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-goldenYellow to-[#ffcd38] filter drop-shadow-md">
+                    Daging Tebal
+                </span>
+                <span class="block mt-2 text-white">& Juicy Teruk.</span>
+            </h1>
+
+            <p class="text-gray-200 text-lg lg:text-2xl leading-relaxed mb-10 max-w-2xl mx-auto opacity-0 animate-fade-in-up font-light drop-shadow-md"
+                style="animation-delay: 0.4s;">
+                Kami tidak hanya memasak, kami mencipta karya seni di dalam roti. Rasai perbezaan burger yang
+                dibakar secara tradisional dengan teknik moden.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-6 opacity-0 animate-fade-in-up"
+                style="animation-delay: 0.6s;">
+                <a href="menu.html"
+                    class="px-8 py-4 bg-crimsonRed rounded-full text-white font-bold text-lg shadow-xl shadow-crimsonRed/30 hover:bg-darkRed hover:shadow-crimsonRed/50 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 min-w-[180px]">
+                    <span>Lihat Menu</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#video"
+                    class="px-8 py-4 border border-white/30 bg-white/10 backdrop-blur-sm rounded-full text-white font-bold text-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 flex items-center justify-center gap-3 group min-w-[180px]">
+                    <div class="relative w-8 h-8 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-75"></div>
+                        <span
+                            class="relative z-10 w-full h-full rounded-full bg-white/20 flex items-center justify-center group-hover:bg-goldenYellow group-hover:text-deepCharcoal transition-colors">
+                            <i data-lucide="play" class="w-3.5 h-3.5 fill-current ml-0.5"></i>
+                        </span>
+                    </div>
+                    <span>Our Story</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Menu (Horizontal Scroll) -->
+    <section id="menu" class="py-24 bg-deepCharcoal relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent">
+        </div>
+        <div class="absolute -right-20 top-40 w-96 h-96 bg-crimsonRed/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12">
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="max-w-2xl">
+                    <h4 class="text-goldenYellow font-bold tracking-widest uppercase mb-4 text-sm animate-fade-in-up">
+                        Masterpieces</h4>
+                    <h2 class="font-serif text-4xl lg:text-5xl font-bold leading-tight animate-fade-in-up"
+                        style="animation-delay: 0.1s;">
+                        Create Your <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Own Taste
+                            Journey</span>
+                    </h2>
+                </div>
+                <!-- Controls -->
+                <div class="flex gap-4 animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <button id="scroll-left"
+                        class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 hover:border-goldenYellow/50 hover:text-goldenYellow transition-all duration-300">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                    <button id="scroll-right"
+                        class="w-12 h-12 rounded-full bg-goldenYellow text-deepCharcoal flex items-center justify-center hover:bg-yellow-400 hover:scale-110 transition-all duration-300 shadow-lg shadow-goldenYellow/20">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Horizontal Scroll Container -->
+            <div class="relative group">
+                <div id="menu-container"
+                    class="flex gap-8 overflow-x-auto pb-12 snap-x snap-mandatory hide-scrollbar scroll-smooth">
+
+                    <!-- Card 1 -->
+                    <div class="min-w-[300px] md:min-w-[350px] snap-start group/card">
+                        <div
+                            class="relative h-[480px] bg-[#1a1a1a] rounded-[2rem] p-6 flex flex-col items-center overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-500 hover:shadow-2xl hover:shadow-goldenYellow/5 hover:-translate-y-2">
+                            <!-- Image Area -->
+                            <div
+                                class="w-full h-1/2 relative z-10 -mt-10 group-hover/card:scale-110 transition-transform duration-700 ease-out">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-b from-transparent to-[#1a1a1a]/80 z-20 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500">
+                                </div><br>
+                                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop"
+                                    alt="The Classic"
+                                    class="w-full h-full object-cover rounded-full shadow-2xl shadow-black/50">
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-1 flex flex-col justify-end w-full relative z-20 pt-8">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3
+                                            class="font-serif text-2xl font-bold mb-1 group-hover/card:text-goldenYellow transition-colors">
+                                            The Classic Prime</h3>
+                                        <span
+                                            class="text-xs font-bold px-2 py-1 rounded bg-goldenYellow/10 text-goldenYellow inline-block mb-2">Signature</span>
+                                    </div>
+                                    <span class="text-xl font-bold font-serif">$18</span>
+                                </div>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                                    200g angus beef patty, cheddar, caramelized onion, lettuce, tomato, home-made sauce.
+                                </p>
+                            </div>
+
+                            <!-- Decorative Glow -->
+                            <div
+                                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-crimsonRed/20 rounded-full blur-[80px] opacity-0 group-hover/card:opacity-100 transition-opacity duration-700">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="min-w-[300px] md:min-w-[350px] snap-start group/card">
+                        <div
+                            class="relative h-[480px] bg-[#1a1a1a] rounded-[2rem] p-6 flex flex-col items-center overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-500 hover:shadow-2xl hover:shadow-goldenYellow/5 hover:-translate-y-2">
+                            <div
+                                class="w-full h-1/2 relative z-10 -mt-10 group-hover/card:scale-110 transition-transform duration-700 ease-out">
+                                <br>
+                                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=600&auto=format&fit=crop"
+                                    alt="Spicy Volcano"
+                                    class="w-full h-full object-cover rounded-full shadow-2xl shadow-black/50">
+                            </div>
+                            <div class="flex-1 flex flex-col justify-end w-full relative z-20 pt-8">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3
+                                            class="font-serif text-2xl font-bold mb-1 group-hover/card:text-goldenYellow transition-colors">
+                                            Spicy Volcano</h3>
+                                        <span
+                                            class="text-xs font-bold px-2 py-1 rounded bg-red-500/10 text-red-500 inline-block mb-2">Hot</span>
+                                    </div>
+                                    <span class="text-xl font-bold font-serif">$22</span>
+                                </div>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                                    Double patty, spicy jalapeños, melted pepper jack cheese, brioche bun, volcano
+                                    sauce.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="min-w-[300px] md:min-w-[350px] snap-start group/card">
+                        <div
+                            class="relative h-[480px] bg-[#1a1a1a] rounded-[2rem] p-6 flex flex-col items-center overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-500 hover:shadow-2xl hover:shadow-goldenYellow/5 hover:-translate-y-2">
+                            <div
+                                class="w-full h-1/2 relative z-10 -mt-10 group-hover/card:scale-110 transition-transform duration-700 ease-out">
+                                <br>
+                                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop"
+                                    alt="Truffle Mushroom"
+                                    class="w-full h-full object-cover rounded-full shadow-2xl shadow-black/50">
+                            </div>
+                            <div class="flex-1 flex flex-col justify-end w-full relative z-20 pt-8">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3
+                                            class="font-serif text-2xl font-bold mb-1 group-hover/card:text-goldenYellow transition-colors">
+                                            Truffle Majesty</h3>
+                                        <span
+                                            class="text-xs font-bold px-2 py-1 rounded bg-purple-500/10 text-purple-400 inline-block mb-2">Premium</span>
+                                    </div>
+                                    <span class="text-xl font-bold font-serif">$25</span>
+                                </div>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                                    Black truffle oil, sautéed wild mushrooms, swiss cheese, wagyu beef, garlic aioli.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="min-w-[300px] md:min-w-[350px] snap-start group/card">
+                        <div
+                            class="relative h-[480px] bg-[#1a1a1a] rounded-[2rem] p-6 flex flex-col items-center overflow-hidden border border-white/5 hover:border-goldenYellow/30 transition-all duration-500 hover:shadow-2xl hover:shadow-goldenYellow/5 hover:-translate-y-2">
+                            <div
+                                class="w-full h-1/2 relative z-10 -mt-10 group-hover/card:scale-110 transition-transform duration-700 ease-out">
+                                <br>
+                                <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?q=80&w=600&auto=format&fit=crop"
+                                    alt="Chicken Crispy"
+                                    class="w-full h-full object-cover rounded-full shadow-2xl shadow-black/50">
+                            </div>
+                            <div class="flex-1 flex flex-col justify-end w-full relative z-20 pt-8">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3
+                                            class="font-serif text-2xl font-bold mb-1 group-hover/card:text-goldenYellow transition-colors">
+                                            Golden Crispy</h3>
+                                        <span
+                                            class="text-xs font-bold px-2 py-1 rounded bg-yellow-500/10 text-yellow-500 inline-block mb-2">Chicken</span>
+                                    </div>
+                                    <span class="text-xl font-bold font-serif">$16</span>
+                                </div>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                                    Buttermilk fried chicken thigh, slaw, pickles, spicy honey glaze, toasted bun.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: About Us (The Story) -->
+    <section id="about" class="py-24 relative overflow-hidden bg-[#0d0d0d]">
+        <div class="container mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Image Side -->
+                <div
+                    class="relative order-2 lg:order-1 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000">
+                    <!-- Decorative Corner Line -->
+                    <div class="absolute -top-10 -left-10 w-24 h-24 border-t-4 border-l-4 border-goldenYellow z-20">
+                    </div>
+
+                    <!-- Main Image container -->
+                    <div class="relative rounded-sm overflow-hidden transition-all duration-700 ease-in-out group">
+                        <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=1200&auto=format&fit=crop"
+                            alt="Chef Preparing Burger"
+                            class="w-full object-cover h-[600px] transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60"></div>
+
+                        <!-- Floating Badge -->
+                        <div
+                            class="absolute bottom-8 right-8 bg-crimsonRed text-white p-6 rounded shadow-2xl z-30 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span class="block text-4xl font-serif font-bold leading-none">10+</span>
+                            <span class="block text-xs uppercase tracking-widest mt-1 font-semibold">Resipi
+                                Rahsia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Side -->
+                <div
+                    class="order-1 lg:order-2 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000 delay-300">
+                    <span class="text-goldenYellow tracking-[0.2em] text-sm font-bold uppercase mb-4 block">About
+                        Us</span>
+                    <h2 class="font-serif text-4xl lg:text-6xl font-bold leading-tight mb-8">
+                        DARI OBSESI KE <br>
+                        <span class="text-crimsonRed">REALITI.</span>
+                    </h2>
+
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Kami tidak percaya pada jalan pintas. Di sini, setiap burger adalah karya seni. Bermula dari
+                        pemilihan daging premium sehingga ke proses membakar roti brioche, setiap langkah dilakukan
+                        dengan penuh ketelitian untuk memastikan satu gigitan yang mengubah hari anda.
+                    </p>
+
+                    <div class="grid sm:grid-cols-2 gap-8 mb-12">
+                        <!-- Feature 1 -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-3 text-goldenYellow">
+                                <i data-lucide="leaf" class="w-5 h-5"></i>
+                                <h4 class="font-bold text-lg">Bahan Segar</h4>
+                            </div>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                Tiada daging sejuk beku. Kami menggunakan bahan mentah yang segar setiap hari dari
+                                ladang terpilih.
+                            </p>
+                        </div>
+                        <!-- Feature 2 -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-3 text-goldenYellow">
+                                <i data-lucide="flame" class="w-5 h-5"></i>
+                                <h4 class="font-bold text-lg">Api Arang</h4>
+                            </div>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                Aroma asap tulen yang membangkitkan selera, dibakar sempurna dengan teknik kawalan suhu
+                                yang teliti.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Feedback (Testimonial) -->
+    <section id="feedback" class="py-24 bg-deepCharcoal relative overflow-hidden">
+
+        <!-- Headers -->
+        <div
+            class="container mx-auto px-6 lg:px-12 mb-16 text-center animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000">
+            <span class="text-goldenYellow tracking-[0.2em] text-sm font-bold uppercase mb-4 block">Feedback</span>
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold leading-tight mb-4">
+                APA KATA <span class="text-crimsonRed">MEREKA?</span>
+            </h2>
+            <p class="text-gray-400 max-w-xl mx-auto">
+                Lebih daripada 1,000+ peminat burger telah merasai perbezaannya. Ini adalah jujur dari hati mereka.
+            </p>
+        </div>
+
+        <!-- Feedback Grid -->
+        <div class="container mx-auto px-6 lg:px-12 grid md:grid-cols-3 gap-8 items-center">
+
+            <!-- Card 1 -->
+            <div
+                class="bg-[#1a1a1a] p-8 rounded-2xl border border-white/5 hover:border-goldenYellow/20 transition-all duration-300 animate-on-scroll opacity-0 translate-y-10 delay-100 hover:-translate-y-2">
+                <div class="flex text-goldenYellow gap-1 mb-6">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+                <p class="text-gray-300 italic font-serif leading-relaxed mb-8">
+                    "Daging dia memang <strong class="text-white not-italic">**juicy gila**</strong>. Tak pernah rasa
+                    burger tepi jalan yang kualiti macam restoran 5 bintang macam ni. Sos rahsia tu memang kena dengan
+                    selera!"
+                </p>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-10 h-10 rounded-full bg-goldenYellow text-deepCharcoal font-bold flex items-center justify-center">
+                        A</div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm">Amirul Hakim</h4>
+                        <span class="text-xs text-gray-500 uppercase tracking-wider">Pelanggan Tetap</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 (Highlighted) -->
+            <div
+                class="bg-crimsonRed p-8 lg:p-10 rounded-2xl shadow-2xl shadow-crimsonRed/20 transform md:scale-110 z-10 animate-on-scroll opacity-0 translate-y-10 delay-200">
+                <div class="flex text-goldenYellow gap-1 mb-6">
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                </div>
+                <p class="text-white italic font-serif text-lg leading-relaxed mb-8">
+                    "Roti brioche dia lembut gila, cair dalam mulut! Anak-anak saya yang cerewet makan pun habiskan
+                    sebiji sorang. <strong class="not-italic border-b-2 border-goldenYellow">Highly
+                        recommended!</strong>"
+                </p>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-full bg-white text-crimsonRed font-bold flex items-center justify-center text-lg">
+                        S</div>
+                    <div>
+                        <h4 class="font-bold text-white text-base">Sarah Tan</h4>
+                        <span class="text-xs text-white/70 uppercase tracking-wider">Food Blogger</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+                class="bg-[#1a1a1a] p-8 rounded-2xl border border-white/5 hover:border-goldenYellow/20 transition-all duration-300 animate-on-scroll opacity-0 translate-y-10 delay-300 hover:-translate-y-2">
+                <div class="flex text-goldenYellow gap-1 mb-6">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                </div>
+                <p class="text-gray-300 italic font-serif leading-relaxed mb-8">
+                    "Servis pantas walaupun orang ramai. Burger sampai panas-panas. Aroma bakar arang dia memang <strong
+                        class="text-white not-italic">**favourite**</strong> saya!"
+                </p>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-10 h-10 rounded-full bg-gray-700 text-white font-bold flex items-center justify-center">
+                        M</div>
+                    <div>
+                        <h4 class="font-bold text-white text-sm">Megat Firdaus</h4>
+                        <span class="text-xs text-gray-500 uppercase tracking-wider">Local Guide</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-[#050505] pt-20 pb-10 border-t border-white/5 relative overflow-hidden">
+        <!-- Background Glow -->
+        <div
+            class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-goldenYellow/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative z-10">
+
+            <!-- Top CTA Section -->
+            <div
+                class="flex flex-col items-center text-center mb-16 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000">
+                <h2 class="font-serif text-3xl lg:text-5xl font-bold mb-6">Sudah Bersedia Untuk <br> <span
+                        class="text-goldenYellow">Level Up Tastebud Anda?</span></h2>
+                <a href="https://wa.me/" target="_blank"
+                    class="inline-flex items-center gap-3 px-8 py-4 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-full text-lg shadow-lg hover:shadow-green-500/20 hover:-translate-y-1 transition-all duration-300 group">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 fill-current">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                    <span>Order via WhatsApp</span>
+                </a>
+            </div>
+
+            <div
+                class="grid md:grid-cols-4 gap-12 border-b border-white/10 pb-12 mb-8 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000 delay-200">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="text-3xl font-serif font-bold tracking-tighter text-white mb-6 block">
+                        Empire Burger Blok F
+                    </a>
+                    <p class="text-gray-500 max-w-sm leading-relaxed mb-6">
+                        Burger premium buatan tangan dengan resepi asli yang membangkitkan selera. Daging segar, roti
+                        lembut, rasa padu.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-goldenYellow hover:text-deepCharcoal transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-goldenYellow hover:text-deepCharcoal transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-goldenYellow hover:text-deepCharcoal transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-white mb-6">Menu</h4>
+                    <ul class="space-y-4 text-gray-500">
+                        <li><a href="#menu" class="hover:text-goldenYellow transition-colors">Signature Beef</a></li>
+                        <li><a href="#menu" class="hover:text-goldenYellow transition-colors">Chicken Series</a></li>
+                        <li><a href="#menu" class="hover:text-goldenYellow transition-colors">Special Sides</a></li>
+                        <li><a href="#menu" class="hover:text-goldenYellow transition-colors">Drinks</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-white mb-6">Hubungi Kami</h4>
+                    <div
+                        class="mt-6 rounded-xl overflow-hidden h-48 border border-white/10 transition-all duration-500">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.535848261352!2d101.7188!3d3.2088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwMTInMzEuNyJOIDEwMcKwNDMnMDcuNyJF!5e0!3m2!1sen!2smy!4v1700000000000"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div><br>
+                    <ul class="space-y-4 text-gray-500">
+                        <li class="flex gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-goldenYellow flex-shrink-0"></i>
+                            <span>123, Jalan Burger Sedap,<br>50000 Kuala Lumpur.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-goldenYellow flex-shrink-0"></i>
+                            <span>+60 12-345 6789</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <i data-lucide="clock" class="w-5 h-5 text-goldenYellow flex-shrink-0"></i>
+                            <span>Selasa - Ahad<br>5:00 PM - 12:00 AM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+                <p>&copy; 2026 Empire Burger Blok F. All rights reserved. | Web Designed by Muhammad Danish</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="scripts/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
