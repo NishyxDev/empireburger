@@ -219,6 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'success.html';
     });
 
+    // Intialize listener for custom events from combo builder
+    document.addEventListener('empire-burger-add-to-cart', (e) => {
+        if (e.detail) {
+            addToCart(e.detail);
+        }
+    });
+
     // Initialize
     loadCart();
 });
